@@ -10,6 +10,7 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var multer = require("multer");
 var index = require('./routes/index');
+var fs = require('fs');
 var session = require("express-session");
 mongoose.connect("mongodb://admin:admin@ds047812.mlab.com:47812/slocket");
 var app = express();
@@ -51,6 +52,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 app.use('/', index);
 

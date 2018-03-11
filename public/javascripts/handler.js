@@ -1,5 +1,28 @@
 $(document).ready(function(){
     
+    $("#contactName").keypress(function(e){
+        if (e.which == 13){
+            msg = $("#contactName").val();
+            $.ajax({
+                url: '/check',
+                type: 'POST',
+                data:{
+                    msg: msg
+                },
+                success: function (response) {
+                    if (response[0]=="/"){
+                        $("#answer").html("<img src='"+response+"'>");
+                    }
+                    else{
+                        $("#answer").text("Answer: " + response);
+                    }
+                },
+                error: function () {
+                    console.log("Error in ajax");
+                }
+            });
+        }    
+    })
 
     $.ajax({
         url: '/getSteps',
@@ -59,7 +82,7 @@ $(document).ready(function(){
             lg = $("#pics_id");
             for (i=0;i<response.length;i++){
                 path = response[i].path.substring(6);
-                text = '<div class="image"><img data-lazy="'+path+'" alt = ""></div >'
+                text = '<div class="image"><img data-lazy="' + path +'" alt = ""><br><p style="color:white; font-size:30px;margin-top:100px;font-family:montserrat-medium;">'+response[i].class+'</p></div >'
                 lg.append(text);
             }
             $('.pics').slick({
@@ -68,13 +91,13 @@ $(document).ready(function(){
                 autoplay: true,
                 autoplaySpeed: 2000,
                 centerPadding: '30px',
-                slidesToShow: 3,
+                slidesToShow: 2,
                 dots: true,
                 infinite: true,
                 arrows: true,
-                speed: 300,
+                speed: 500,
                 // rows:2,
-                slidesToScroll: 2,
+                slidesToScroll: 1,
                 // fade: true,
                 // cssEase: 'linear',
                 responsive: [
@@ -84,7 +107,7 @@ $(document).ready(function(){
                             arrows: false,
                             centerMode: true,
                             centerPadding: '30px',
-                            slidesToShow: 3
+                            slidesToShow: 2
                         }
                     },
                     {
@@ -117,10 +140,6 @@ function make_chart(arr){
             backgroundColor: "transparent", 
             theme:"light3",
             animationEnabled: true,
-            title: {
-                text: "STEPS - DATE CHART",
-                fontColor: "#edf5e1",
-            },
             axisX: {
                 title: "TIME",
                 gridThickness: 0,
@@ -128,14 +147,16 @@ function make_chart(arr){
                 lineThickness:2,
                 labelFontColor: "#edf5e1",
                 titleFontColor:"#edf5e1",
-                labelFontColor: "#edf5e1"
+                labelFontColor: "#edf5e1",
+                titleFontFamily:"montserrat-medium"
             },
             axisY: {
                 title: "STEPS",
                 gridThickness:0,
                 labelFontColor: "#edf5e1",
                 titleFontColor: "#edf5e1",
-                labelFontColor: "#edf5e1"
+                labelFontColor: "#edf5e1",
+                titleFontFamily: "montserrat-medium"
             },
             data: [
                 {
@@ -164,19 +185,19 @@ function makePie(data) {
             dataFormat: "json",
             dataSource: {
                 "chart": {
-                    "caption": "Data Distribution",
-                    "subCaption": "(MB) ",
+                    "caption": "",
+                    "subCaption": "",
                     "paletteColors": "#f45b00,#1aaf5d,#0075c2,#f2c500,#8e0000",
                     // "bgImage": "/images/bg_main.jpg",
                     //Background image transparency 
                     // "bgImageAlpha": "50",
                     // "bgImageDisplayMode": "stretch",
                     //Theme
-                    "bgColor":"#000",
+                    "bgColor":"#E5E5E5",
                     "theme": "fint",
                     "showBorder": "0",
                     "use3DLighting": "0",
-                    "baseFontColor": "#edf5e1",
+                    "baseFontColor": "#000",
                     "showShadow": "1",
                     "enableSmartLabels": "1",
                     "startingAngle": "0",

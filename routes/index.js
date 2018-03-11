@@ -5,6 +5,10 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var auth = require('../authentication/auth');
 var upload = require("../multer/config").upload;
+var apiai = require('apiai');
+var fs = require("fs");
+
+var app = apiai("f93462108ead4bc982b70cfb0850b55b");
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (!req.user){
@@ -12,9 +16,11 @@ router.get('/', function(req, res, next) {
   }
   else{
     console.log(req.user);
-    res.render('index');
+    res.render('indexTry');
   }
 });
+
+
 
 router.get("/login", (req, res) => {
   res.render("loginIndex",{hint:"login"});
@@ -122,5 +128,62 @@ router.get("/partitionData", (req,res)=>{
   }
   res.json({data:out})
 })
+
+router.post("/check", (req,res)=>{
+  msg = req.body.msg;  
+
+  var request = app.textRequest(msg, {
+    sessionId: Date.now()
+  });
+
+  request.on('response', function (response) {
+    pic = response.result.parameters.pic;
+    step = response.result.parameters.step;
+    console.log(pic,step);
+    if (pic.length>0){
+      model.getRecentPic().
+        then((r) => {
+          res.send(r.message.substring(6));
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send("Some error");
+        })
+    }
+    else{
+      model.totalNoOfSteps().
+        then((r) => {
+          res.send("Total no of steps are " + r.message);
+        })
+        .catch((err) => {
+          res.send("Some error");
+        })
+    }
+  });
+  request.end();
+})
+
+
+
+router.post("/flag", (req, res) => {
+  fs.writeFile('flag.txt', req.body.flag, (err) => {
+    // throws an error, you could also catch it here
+    if (err) throw res.send(err);
+    fs.readFile('flag.txt', 'utf8', function (err, contents) {
+      res.send(contents);
+    });
+    // success case, the file was saved
+
+  });
+})
+
+router.get("/flag1", (req, res) => {
+  res.status(200);
+  fs.readFile('flag.txt', 'utf8', function (err, contents) {
+    res.send(contents);
+  });
+})
+
+
 
 module.exports = router;

@@ -109,3 +109,49 @@ exports.addData = (req,data) => {
         })
     })
 }
+
+
+exports.totalNoOfSteps = ()=>{
+    return new Promise((resolve, reject)=>{
+        User.findOne({ username: "lakapoor777" }).exec((err, data) => {
+            if (err || !data){
+                reject({status:-1, message:err});
+            }
+            else{
+                var arr = data.steps;
+                var c = 0;
+                for (i=0;i<arr.length;i++){
+                    c+=parseInt(arr[i].count);
+                }
+                resolve({status:1, message:c});
+            }
+        })
+    }) 
+}
+
+
+
+exports.getRecentPic = () => {
+    return new Promise((resolve, reject) => {
+        User.findOne({ username: "lakapoor777" }).exec((err, data) => {
+            if (err || !data) {
+                reject({ status: -1, message: err });
+            }
+            else {
+                var arr = data.data;
+                var c = 0;
+                max = arr[0].date;
+                index = 0;
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i].date>=max){
+                        index = i;
+                    }
+                    if (i==arr.length-1){
+                        resolve({ status: 1, message: arr[index].path });
+                    }
+                }
+               
+            }
+        })
+    })
+}

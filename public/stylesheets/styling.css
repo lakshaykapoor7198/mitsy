@@ -1,13 +1,15 @@
-body{
-    padding: 20px;
+/* body{
     background-color: #5CDB95;
     color:#EDF5E1;
     background-image: url("/images/bg_aman.jpg") ;
-    background-size:     cover;                      /* <------ */
+    background-size:     cover;                    
     background-repeat:   no-repeat;
     background-position: center center;
-}
+} */
 
+ul{
+    list-style-type: none;
+}
 
 .chart{
     margin-top: 30px;
@@ -17,8 +19,7 @@ body{
 }
 
 .pics{
-    margin-top:200px;
-    background-color: #379683;
+    margin-top:20px;
     border-radius: 10px;
 }
 
