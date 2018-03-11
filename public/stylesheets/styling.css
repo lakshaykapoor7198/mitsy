@@ -1,0 +1,54 @@
+body{
+    padding: 20px;
+    background-color: #5CDB95;
+    color:#EDF5E1;
+    background-image: url("/images/bg_aman.jpg") ;
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+}
+
+
+.chart{
+    margin-top: 30px;
+}
+.col-sm-6{
+    border-radius: 20px;
+}
+
+.pics{
+    margin-top:200px;
+    background-color: #379683;
+    border-radius: 10px;
+}
+
+
+.image img{
+    border: 5px solid white;
+    width: 95%;
+    border-radius: 30px;
+    margin: 20px;
+    height: 500px;
+    box-shadow: 10px 10px 5px #000;
+    -moz-box-shadow: 10px 10px 5px #000;
+    -webkit-box-shadow: 10px 10px 5px #000;
+    -khtml-box-shadow: 10px 10px 5px #000;
+}
+
+.image{
+    margin:40px;
+}
+
+
+.slick-prev {
+margin-left: 40px;
+}
+
+.slick-next {
+margin-right: 40px;
+}
+
+
+.slick-prev:before, .slick-next:before { 
+color:#05386B !important;
+}
