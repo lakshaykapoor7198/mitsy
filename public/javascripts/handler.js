@@ -82,7 +82,7 @@ $(document).ready(function(){
             lg = $("#pics_id");
             for (i=0;i<response.length;i++){
                 path = response[i].path.substring(6);
-                text = '<div class="image"><img data-lazy="' + path +'" alt = ""><br><p style="color:white; font-size:30px;margin-top:100px;font-family:montserrat-medium;">'+response[i].class+'</p></div >'
+                text = '<div class="image"><img data-lazy="' + path +'" alt = ""><center><p style="color:black; font-size:30px;margin-top:100px;font-family:montserrat-medium;">'+response[i].class.toUpperCase()+'</p></center></div >'
                 lg.append(text);
             }
             $('.pics').slick({
