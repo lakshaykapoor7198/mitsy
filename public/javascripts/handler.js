@@ -1,5 +1,7 @@
 $(document).ready(function(){
     
+    
+
     $("#contactName").keypress(function(e){
         if (e.which == 13){
             msg = $("#contactName").val();
