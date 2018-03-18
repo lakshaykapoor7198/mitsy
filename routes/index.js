@@ -191,4 +191,33 @@ router.get("/m/login", (req,res)=>{
 
 
 
+router.get("/customize", (req,res)=>{
+  res.render("customize");
+});
+
+router.post("/customize", (req, res) => {
+  model.addGestures(req).
+  then((response)=>{
+    console.log(response.message);
+    res.send(response.message);
+
+  })
+  .catch((err)=>{
+    console.log(err);
+  })
+});
+
+router.post("/getGestures", (req,res)=>{
+  model.getGestures(req).
+  then((response)=>{
+    console.log(response);
+    res.json(response.message[0]);
+  })
+  .catch((err)=>{
+    console.log(err);
+    res.json(err.message);
+  })
+})
+
+
 module.exports = router;

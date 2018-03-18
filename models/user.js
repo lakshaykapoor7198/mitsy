@@ -9,7 +9,8 @@ var user = mongoose.Schema({
         required: true
     },
     steps:[],
-    data:[]
+    data:[],
+    gestures:[]
 })
 
 
@@ -105,6 +106,57 @@ exports.addData = (req,data) => {
                         resolve({ status: 2, message: "Uploaded at" + item.date });
                     }
                 })
+            }
+        })
+    })
+}
+
+exports.addGestures = (req)=>{
+    return new Promise((resolve , reject)=>{
+        User.findById(req.body.id).exec((err, user)=>{
+            if (!user || err) {
+                console.log(err);
+                reject({ status: -1, message: "No such user found" });
+            }
+            else {
+                v = [{
+                    up: req.body.up,
+                    down:req.body.down,
+                    side: req.body.side,
+                    meet: req.body.meet,
+                    forward: req.body.forward
+                }]
+                var gestures = v;
+                User.findByIdAndUpdate(req.body.id, { $set: { gestures: gestures } }, { new: true }).exec((err, s) => {
+                    if (err || !s) {
+                        console.log(err);
+                        reject({ status: -1, message: err });
+                    }
+                    else {
+                        resolve({ status: 2, message: "Updated"});
+                    }
+                })
+            }
+        })
+    })
+}
+
+
+
+exports.getGestures = (req)=>{
+    return new Promise((resolve, reject) => {
+        User.findById(req.body.id).exec((err, user) => {
+            if (!user || err) {
+                console.log(err);
+                reject({ status: -1, message: "No such user found" });
+            }
+            else {
+                if (user.gestures.length>0){
+                    resolve({ status: 2, message: user.gestures })
+                }
+                else{
+                    reject({status:1,message:"default"})
+                }
             }
         })
     })
