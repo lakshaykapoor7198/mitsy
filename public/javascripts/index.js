@@ -2,7 +2,6 @@
 ---------------------------------------
 */
 
-
 function cambiar_login() {
   var loginUserName = document.querySelectorAll("#loginUserName")[0].value;
   var loginPassword = document.querySelectorAll("#loginPassword")[0].value;

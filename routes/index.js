@@ -185,5 +185,10 @@ router.get("/flag1", (req, res) => {
 })
 
 
+router.get("/m/login", (req,res)=>{
+  res.render("loginIndexMob", { hint: "login" });
+})
+
+
 
 module.exports = router;
