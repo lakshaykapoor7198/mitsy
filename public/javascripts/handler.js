@@ -73,6 +73,22 @@ $(document).ready(function(){
         }
     });
 
+
+    setInterval(function () {
+        $.ajax({
+            url: '/flagarcs',
+            type: 'GET',
+            success: function (response) {
+                if (response == "1") {
+                    window.location.href = "../arcs";
+                }
+            },
+            error: function () {
+                console.log("Error in ajax");
+            }
+        });
+    }, 4000)
+
     $.ajax({
         url: '/getPics',
         type: 'GET',

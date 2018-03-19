@@ -220,4 +220,40 @@ router.post("/getGestures", (req,res)=>{
 })
 
 
+router.get("/arcs", (req,res)=>{
+  res.render("arcs");
+});
+
+
+router.post("/arcs", (req, res) => {
+  fs.writeFile('arcs.txt', req.body.arcs, (err) => {
+    // throws an error, you could also catch it here
+    if (err) throw res.send(err);
+    fs.readFile('arcs.txt', 'utf8', function (err, contents) {
+      res.send(contents);
+    });
+    // success case, the file was saved
+
+  });
+})
+
+router.get("/flagarcs", (req, res) => {
+  res.status(200);
+  fs.readFile('arcs.txt', 'utf8', function (err, contents) {
+    if (contents=="1"){
+      setTimeout(() => {
+        fs.writeFile('arcs.txt', "0", (err) => {
+          // throws an error, you could also catch it here
+          if (err) throw res.send(err);
+
+        });
+      }, 5000);
+      
+    }
+    res.send(contents);
+  });
+})
+
+
+
 module.exports = router;
